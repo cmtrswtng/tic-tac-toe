@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Player } from '../../types/game';
 import { positionToKey } from '../../utils/gameLogic';
-import { XIcon, OIcon } from '../../assets/icons';
+import { XIcon, OIcon, PlayIcon } from '../../assets/icons';
 import { Button } from '../ui/Button';
 
 interface GameGridProps {
@@ -156,6 +156,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
             cursor: isInteractive && !player ? 'pointer' : 'default'
           }}
           onClick={isInteractive && onCellClick ? () => onCellClick(worldX, worldY) : undefined}
+          onTouchStart={isInteractive && onCellClick ? () => onCellClick(worldX, worldY) : undefined}
         />
         {player && (
           <foreignObject
@@ -238,6 +239,51 @@ export const GameGrid: React.FC<GameGridProps> = ({
       >
         {renderGrid()}
       </svg>
+      <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-xl shadow-lg p-2">
+          <div className="grid grid-cols-3 grid-rows-3 gap-1 w-32 h-32">
+          <div/>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="h-10 w-10 p-0 hover:bg-blue-50 border-gray-300"
+              onClick={() => handleCenterToPosition(centerPosition.x, centerPosition.y - 1)}
+            >
+              <PlayIcon className='w-4 h-4 transform -rotate-90'/>
+            </Button>
+            <div/>
+            
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="h-10 w-10 p-0 hover:bg-blue-50 border-gray-300"
+              onClick={() => handleCenterToPosition(centerPosition.x - 1, centerPosition.y)}
+            >
+              <PlayIcon className='w-4 h-4 transform rotate-180'/>
+            </Button>
+            <div/>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="h-10 w-10 p-0 hover:bg-blue-50 border-gray-300"
+              onClick={() => handleCenterToPosition(centerPosition.x + 1, centerPosition.y)}
+            >
+              <PlayIcon className='w-4 h-4 transform rotate-0'/>
+            </Button>
+            
+            <div/>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="h-10 w-10 p-0 hover:bg-blue-50 border-gray-300"
+              onClick={() => handleCenterToPosition(centerPosition.x, centerPosition.y + 1)}
+            >
+              <PlayIcon className='w-4 h-4 transform rotate-90'/>
+            </Button>
+            <div/>
+          </div>
+        </div>
+      </div>
       
       <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white bg-opacity-95 backdrop-blur-sm p-2 sm:p-3 rounded-lg shadow-lg">
         <div className="text-xs sm:text-sm text-gray-600 mb-2">

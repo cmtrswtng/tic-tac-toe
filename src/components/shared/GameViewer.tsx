@@ -14,7 +14,6 @@ export const GameViewer: React.FC<GameViewerProps> = ({ game }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [centerPosition, setCenterPosition] = useState({ x: 0, y: 0 });
   const [showMovesList, setShowMovesList] = useState(false);
-  const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -217,14 +216,6 @@ export const GameViewer: React.FC<GameViewerProps> = ({ game }) => {
             >
               <StepsIcon/> Ходы
             </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => setShowControls(!showControls)}
-              className="flex-1 text-xs"
-            >
-              <MenuIcon/> Панель
-            </Button>
           </div>
         </div>
       </div>
@@ -246,9 +237,8 @@ export const GameViewer: React.FC<GameViewerProps> = ({ game }) => {
             onCenterPositionChange={setCenterPosition}
           />
 
-          <nav className={`absolute bottom-2 left-2 bg-primary/75 backdrop-blur-sm text-white p-2 rounded-lg transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 sm:opacity-100'}`}>
+          <nav className="absolute bottom-2 left-2 bg-primary/75 backdrop-blur-sm text-white p-2 rounded-lg transition-opacity duration-300">
             <div className="text-xs sm:text-sm space-y-1">
-              <div className="sm:hidden">Зажать и тянуть</div>
               <div className="hidden sm:block">
                 <li>Зажать и тянуть: перемещение</li>
                 <li>Сетка расширяется автоматически</li>

@@ -21,7 +21,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   playerO,
 }) => {
   const [centerPosition, setCenterPosition] = useState({ x: 0, y: 0 });
-  const [showControls, setShowControls] = useState(true);
   const [showGameEndAnimation, setShowGameEndAnimation] = useState(false);
   const [lastMovePosition, setLastMovePosition] = useState<Position | null>(null);
 
@@ -96,14 +95,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                 <span className="hidden sm:inline">Новая игра</span>
               </Button>
             )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowControls(!showControls)}
-              className="sm:hidden text-xs flex items-center"
-            >
-              <EyeIcon className="w-4 h-4" />
-            </Button>
           </div>
         </div>
       </section>
@@ -124,7 +115,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
           onCenterPositionChange={setCenterPosition}
         />
         
-        <nav className={`fixed bottom-2 left-2 sm:bottom-4 sm:left-4 bg-primary/75 backdrop-blur-sm text-white p-2 sm:p-3 rounded-lg transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0 sm:opacity-100'}`}>
+        <nav className="fixed bottom-2 left-2 sm:bottom-4 sm:left-4 bg-primary/75 backdrop-blur-sm text-white p-2 sm:p-3 rounded-lg transition-opacity duration-300">
           <div className="text-xs sm:text-sm space-y-1">
             <div className="sm:hidden">Зажать и тянуть</div>
             <div className="hidden sm:block">
