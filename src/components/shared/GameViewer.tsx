@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GameHistory, Player } from '../../types/game';
 import { positionToKey } from '../../utils/gameLogic';
 import { Button } from '../ui/Button';
-import { PauseIcon, PlayIcon, NextIcon, PrevIcon, SkipNextIcon, SkipPrevIcon, StepsIcon, MenuIcon } from '../../assets/icons';
+import { PauseIcon, PlayIcon, NextIcon, PrevIcon, SkipNextIcon, SkipPrevIcon, StepsIcon } from '../../assets/icons';
 import { GameGrid } from './GameGrid';
 
 interface GameViewerProps {

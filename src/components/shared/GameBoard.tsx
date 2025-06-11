@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Position, GameState } from '../../types/game';
 import { positionToKey } from '../../utils/gameLogic';
 import { Button } from '../ui/Button';
-import { ReplayIcon, EyeIcon} from '../../assets/icons';
+import { ReplayIcon} from '../../assets/icons';
 import { GameGrid } from './GameGrid';
 
 interface GameBoardProps {

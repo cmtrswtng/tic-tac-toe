@@ -3,6 +3,7 @@ import { Player } from '../../types/game';
 import { positionToKey } from '../../utils/gameLogic';
 import { XIcon, OIcon, PlayIcon } from '../../assets/icons';
 import { Button } from '../ui/Button';
+import { useThrottle } from '../../hooks/useThrottle';
 
 interface GameGridProps {
   board: Map<string, Player>;
@@ -40,6 +41,8 @@ export const GameGrid: React.FC<GameGridProps> = ({
   const [centerPosition, setCenterPosition] = useState(initialCenterPosition);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  
+  const throttledCenterPosition = useThrottle(centerPosition, 50);
 
   useEffect(() => {
     if (!isDragging && isInteractive) {
@@ -55,9 +58,9 @@ export const GameGrid: React.FC<GameGridProps> = ({
 
   useEffect(() => {
     if (!isDragging) {
-      onCenterPositionChange?.(centerPosition);
+      onCenterPositionChange?.(throttledCenterPosition);
     }
-  }, [centerPosition, onCenterPositionChange, isDragging]);
+  }, [throttledCenterPosition, onCenterPositionChange, isDragging]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) {
@@ -206,8 +209,8 @@ export const GameGrid: React.FC<GameGridProps> = ({
     
     for (let relX = -viewRadius; relX <= viewRadius; relX++) {
       for (let relY = -viewRadius; relY <= viewRadius; relY++) {
-        const worldX = centerPosition.x + relX;
-        const worldY = centerPosition.y + relY;
+        const worldX = throttledCenterPosition.x + relX;
+        const worldY = throttledCenterPosition.y + relY;
         
         if (Math.abs(worldX) <= Number.MAX_SAFE_INTEGER && Math.abs(worldY) <= Number.MAX_SAFE_INTEGER) {
           cells.push(renderCell(worldX, worldY, relX, relY));
@@ -287,7 +290,7 @@ export const GameGrid: React.FC<GameGridProps> = ({
       
       <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white bg-opacity-95 backdrop-blur-sm p-2 sm:p-3 rounded-lg shadow-lg">
         <div className="text-xs sm:text-sm text-gray-600 mb-2">
-          <span className="hidden sm:inline">Координаты: </span>({formatCoordinate(centerPosition.x)}, {formatCoordinate(centerPosition.y)})
+          <span className="hidden sm:inline">Координаты: </span>({formatCoordinate(throttledCenterPosition.x)}, {formatCoordinate(throttledCenterPosition.y)})
         </div>
         <div className="flex flex-col gap-1 sm:gap-2">
           <Button
